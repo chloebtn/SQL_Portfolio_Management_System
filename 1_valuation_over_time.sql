@@ -1,3 +1,5 @@
+-- Tracks portfolio value and P&L over time
+
 WITH daily_totals AS (
 SELECT 
     trade_date,
