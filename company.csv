@@ -1,0 +1,21 @@
+stock_id,stock_name,stock_price
+AAPL,Apple Inc.,150.50
+GOOG,Alphabet Inc.,2800.00
+MSFT,Microsoft Corp.,299.99
+TSLA,Tesla Inc.,750.00
+AMZN,Amazon.com Inc.,3400.00
+META,Meta Platforms Inc.,340.00
+NFLX,Netflix Inc.,500.00
+NVDA,NVIDIA Corp.,800.00
+BABA,Alibaba Group,220.00
+ORCL,Oracle Corp.,90.00
+IBM,IBM Corp.,140.00
+INTC,Intel Corp.,55.00
+AMD,Advanced Micro Devices,105.00
+PYPL,PayPal Holdings,190.00
+UBER,Uber Technologies,45.00
+LYFT,Lyft Inc.,25.00
+DIS,Walt Disney Co.,180.00
+SONY,Sony Group Corp.,115.00
+ADBE,Adobe Inc.,510.00
+SAP,SAP SE,130.00
