@@ -1,0 +1,758 @@
+<!DOCTYPE html>
+<html lang="en">
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <title>
+   Portfolio Management Report
+  </title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js">
+  </script>
+  <!-- Load mathjax -->
+  <!-- MathJax configuration -->
+  <!-- End of mathjax configuration -->
+  <!-- End of mermaid configuration -->
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&amp;display=swap" rel="stylesheet"/>
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet"/>
+  <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet"/>
+  <link href="style.css" rel="stylesheet"/>
+ </head>
+ <body class="jp-Notebook" data-jp-theme-light="true" data-jp-theme-name="JupyterLab Light">
+  <nav>
+   <a href="index.html">
+    Projects
+   </a>
+   <a href="about.html">
+    About
+   </a>
+   <a href="contact.html">
+    Contact
+   </a>
+  </nav>
+  <main>
+  </main>
+  <main>
+   <div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=484c1a24">
+    <div class="jp-Cell-inputWrapper" tabindex="0">
+     <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+     </div>
+     <div class="jp-InputArea jp-Cell-inputArea">
+      <div class="jp-InputPrompt jp-InputArea-prompt">
+      </div>
+      <div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+       <h2 id="1.-Summary">
+        1. Summary
+        <a class="anchor-link" href="#1.-Summary">
+         &para;
+        </a>
+       </h2>
+       <p>
+        This report documents a stock portfolio management system built using SQL queries with fictional data. The project demonstrates my ability to manage investment data, calculate key financial metrics, and generate actionable insights for portfolio analysis and risk management.
+       </p>
+      </div>
+     </div>
+    </div>
+   </div>
+   <div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+    <div class="jp-InputArea jp-Cell-inputArea">
+     <div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+      <img alt="Sample Result" src="img/sample_analysis.png" style="max-width: 100%; height: auto;"/>
+     </div>
+    </div>
+   </div>
+   <div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=f90ec9f1">
+    <div class="jp-Cell-inputWrapper" tabindex="0">
+     <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+     </div>
+     <div class="jp-InputArea jp-Cell-inputArea">
+      <div class="jp-InputPrompt jp-InputArea-prompt">
+      </div>
+      <div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+       <h2 id="2.-Database-Schema-Overview">
+        2. Database Schema Overview
+        <a class="anchor-link" href="#2.-Database-Schema-Overview">
+         &para;
+        </a>
+       </h2>
+      </div>
+     </div>
+    </div>
+   </div>
+   <div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=f01d1fc3">
+    <div class="jp-Cell-inputWrapper" tabindex="0">
+     <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+     </div>
+     <div class="jp-InputArea jp-Cell-inputArea">
+      <div class="jp-InputPrompt jp-InputArea-prompt">
+      </div>
+      <div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+       <h2 id="3.-Project-Objectives:">
+        3. Project Objectives:
+        <a class="anchor-link" href="#3.-Project-Objectives:">
+         &para;
+        </a>
+       </h2>
+       <ul>
+        <li>
+         Track portfolio value and daily changes
+        </li>
+        <li>
+         Analyze daily returns and volatility
+        </li>
+        <li>
+         Identify diversification issues
+        </li>
+        <li>
+         Quantify the impact of trading commissions
+        </li>
+        <li>
+         Generate trading signals based on moving averages
+        </li>
+        <li>
+         Separate realized and unrealized gains
+        </li>
+       </ul>
+      </div>
+     </div>
+    </div>
+   </div>
+   <div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=7dcac70b">
+    <div class="jp-Cell-inputWrapper" tabindex="0">
+     <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+     </div>
+     <div class="jp-InputArea jp-Cell-inputArea">
+      <div class="jp-InputPrompt jp-InputArea-prompt">
+      </div>
+      <div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+       <h2 id="4.-Project">
+        4. Project
+        <a class="anchor-link" href="#4.-Project">
+         &para;
+        </a>
+       </h2>
+       <p>
+        I first created two views of data used in different queries in the analysis:
+       </p>
+       <ul>
+        <li>
+         One for valuation over time for each portfolio/user
+        </li>
+        <li>
+         One for daily returns
+        </li>
+       </ul>
+      </div>
+     </div>
+    </div>
+   </div>
+   <div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=5e98e9fc">
+    <div class="jp-Cell-inputWrapper" tabindex="0">
+     <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+     </div>
+     <div class="jp-InputArea jp-Cell-inputArea">
+      <div class="jp-InputPrompt jp-InputArea-prompt">
+       In&nbsp;[&nbsp;]:
+      </div>
+      <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+       <div class="cm-editor cm-s-jupyter">
+        <div class="highlight hl-python">
+         <pre><span></span><span class="n">CREATE</span> <span class="n">OR</span> <span class="n">ALTER</span> <span class="n">VIEW</span> <span class="n">valuation_over_time</span> <span class="n">AS</span>
+<span class="n">SELECT</span> <span class="n">p</span><span class="o">.</span><span class="n">user_id</span><span class="p">,</span>
+        <span class="n">sph</span><span class="o">.</span><span class="n">trade_date</span><span class="p">,</span>
+        <span class="n">SUM</span><span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">quantity</span> <span class="o">*</span> <span class="n">sph</span><span class="o">.</span><span class="n">close_price</span><span class="p">)</span> <span class="k">as</span> <span class="n">portfolio_value</span><span class="p">,</span>
+        <span class="n">ROUND</span><span class="p">(</span><span class="n">SUM</span><span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">quantity</span> <span class="o">*</span> <span class="n">sph</span><span class="o">.</span><span class="n">close_price</span><span class="p">)</span> <span class="o">-</span> <span class="n">LAG</span><span class="p">(</span><span class="n">SUM</span><span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">quantity</span> <span class="o">*</span> <span class="n">sph</span><span class="o">.</span><span class="n">close_price</span><span class="p">))</span> <span class="n">OVER</span> <span class="p">(</span><span class="n">PARTITION</span> <span class="n">BY</span> <span class="n">p</span><span class="o">.</span><span class="n">user_id</span> <span class="n">ORDER</span> <span class="n">BY</span> <span class="n">sph</span><span class="o">.</span><span class="n">trade_date</span><span class="p">),</span> <span class="mi">2</span><span class="p">)</span> <span class="k">as</span> <span class="n">daily_change</span>
+    <span class="n">FROM</span> <span class="n">portfolio</span> <span class="k">as</span> <span class="n">p</span>
+    <span class="n">JOIN</span> <span class="n">stock_price_history</span> <span class="k">as</span> <span class="n">sph</span> <span class="n">ON</span> <span class="n">p</span><span class="o">.</span><span class="n">stock_id</span> <span class="o">=</span> <span class="n">sph</span><span class="o">.</span><span class="n">stock_id</span>
+    <span class="n">GROUP</span> <span class="n">BY</span> <span class="n">p</span><span class="o">.</span><span class="n">user_id</span><span class="p">,</span> <span class="n">sph</span><span class="o">.</span><span class="n">trade_date</span>
+<span class="n">GO</span>
+
+
+<span class="n">CREATE</span> <span class="n">OR</span> <span class="n">ALTER</span> <span class="n">VIEW</span> <span class="n">daily_returns</span> <span class="n">AS</span> 
+    <span class="n">SELECT</span>
+        <span class="n">trade_date</span><span class="p">,</span>
+        <span class="n">user_id</span><span class="p">,</span>
+        <span class="n">ROUND</span><span class="p">((</span><span class="n">portfolio_value</span> <span class="o">-</span> <span class="n">LAG</span><span class="p">(</span><span class="n">portfolio_value</span><span class="p">)</span> <span class="n">OVER</span> <span class="p">(</span><span class="n">PARTITION</span> <span class="n">BY</span> <span class="n">user_id</span> <span class="n">ORDER</span> <span class="n">BY</span> <span class="n">trade_date</span><span class="p">))</span>
+        <span class="o">/</span> <span class="n">NULLIF</span><span class="p">(</span><span class="n">LAG</span><span class="p">(</span><span class="n">portfolio_value</span><span class="p">)</span> <span class="n">OVER</span> <span class="p">(</span><span class="n">PARTITION</span> <span class="n">BY</span> <span class="n">user_id</span> <span class="n">ORDER</span> <span class="n">BY</span> <span class="n">trade_date</span><span class="p">),</span> <span class="mi">0</span><span class="p">),</span> <span class="mi">2</span><span class="p">)</span> <span class="k">as</span> <span class="n">daily_return</span>
+    <span class="n">FROM</span> <span class="n">valuation_over_time</span>
+<span class="n">GO</span>
+</pre>
+        </div>
+       </div>
+      </div>
+     </div>
+    </div>
+   </div>
+   <div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=fd2bee6a">
+    <div class="jp-Cell-inputWrapper" tabindex="0">
+     <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+     </div>
+     <div class="jp-InputArea jp-Cell-inputArea">
+      <div class="jp-InputPrompt jp-InputArea-prompt">
+      </div>
+      <div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+       <h3 id="Valuation-Over-Time-For-All-Portfolios-Combined">
+        Valuation Over Time For All Portfolios Combined
+        <a class="anchor-link" href="#Valuation-Over-Time-For-All-Portfolios-Combined">
+         &para;
+        </a>
+       </h3>
+       <p>
+        I started with a CTE for total daily valuation for all portfolios combined.
+I then added columns for total daily changes in values and in percentages, and cumulative returns.
+       </p>
+      </div>
+     </div>
+    </div>
+   </div>
+   <div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=c876f4ec">
+    <div class="jp-Cell-inputWrapper" tabindex="0">
+     <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+     </div>
+     <div class="jp-InputArea jp-Cell-inputArea">
+      <div class="jp-InputPrompt jp-InputArea-prompt">
+       In&nbsp;[&nbsp;]:
+      </div>
+      <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+       <div class="cm-editor cm-s-jupyter">
+        <div class="highlight hl-python">
+         <pre><span></span><span class="n">WITH</span> <span class="n">daily_totals</span> <span class="n">AS</span> <span class="p">(</span>
+<span class="n">SELECT</span> 
+    <span class="n">trade_date</span><span class="p">,</span>
+    <span class="n">SUM</span><span class="p">(</span><span class="n">portfolio_value</span><span class="p">)</span> <span class="k">as</span> <span class="n">total_valuation</span>
+<span class="n">FROM</span> <span class="n">valuation_over_time</span>
+<span class="n">GROUP</span> <span class="n">BY</span> <span class="n">trade_date</span>
+<span class="p">)</span>
+
+<span class="n">SELECT</span>
+    <span class="n">trade_date</span><span class="p">,</span>
+    <span class="n">total_valuation</span><span class="p">,</span>
+    <span class="n">ROUND</span><span class="p">(</span><span class="n">total_valuation</span> <span class="o">-</span> <span class="n">LAG</span><span class="p">(</span><span class="n">total_valuation</span><span class="p">)</span> <span class="n">OVER</span> <span class="p">(</span><span class="n">ORDER</span> <span class="n">BY</span> <span class="n">trade_date</span><span class="p">),</span> <span class="mi">2</span><span class="p">)</span> <span class="k">as</span> <span class="n">total_daily_change_value</span><span class="p">,</span>
+    <span class="n">ROUND</span><span class="p">((</span><span class="n">total_valuation</span> <span class="o">-</span> <span class="n">LAG</span><span class="p">(</span><span class="n">total_valuation</span><span class="p">)</span> <span class="n">OVER</span> <span class="p">(</span><span class="n">ORDER</span> <span class="n">BY</span> <span class="n">trade_date</span><span class="p">))</span>
+        <span class="o">/</span> <span class="n">NULLIF</span><span class="p">(</span><span class="n">LAG</span><span class="p">(</span><span class="n">total_valuation</span><span class="p">)</span> <span class="n">OVER</span> <span class="p">(</span><span class="n">ORDER</span> <span class="n">BY</span> <span class="n">trade_date</span><span class="p">),</span> <span class="mi">0</span><span class="p">)</span> <span class="o">*</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span> <span class="k">as</span> <span class="n">total_daily_change_percent</span><span class="p">,</span>
+    <span class="n">ROUND</span><span class="p">((</span><span class="n">total_valuation</span> <span class="o">-</span> <span class="n">FIRST_VALUE</span><span class="p">(</span><span class="n">total_valuation</span><span class="p">)</span> <span class="n">OVER</span> <span class="p">(</span><span class="n">ORDER</span> <span class="n">BY</span> <span class="n">trade_date</span><span class="p">))</span>
+        <span class="o">/</span> <span class="n">NULLIF</span><span class="p">(</span><span class="n">FIRST_VALUE</span><span class="p">(</span><span class="n">total_valuation</span><span class="p">)</span> <span class="n">OVER</span> <span class="p">(</span><span class="n">ORDER</span> <span class="n">BY</span> <span class="n">trade_date</span><span class="p">),</span> <span class="mi">0</span><span class="p">)</span> <span class="o">*</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span> <span class="k">as</span> <span class="n">cumulative_return</span>
+<span class="n">FROM</span> <span class="n">daily_totals</span>
+<span class="n">ORDER</span> <span class="n">BY</span> <span class="n">trade_date</span> <span class="n">DESC</span>
+<span class="p">;</span>
+</pre>
+        </div>
+       </div>
+      </div>
+     </div>
+    </div>
+   </div>
+   <div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=59ecaa62">
+    <div class="jp-Cell-inputWrapper" tabindex="0">
+     <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+     </div>
+     <div class="jp-InputArea jp-Cell-inputArea">
+      <div class="jp-InputPrompt jp-InputArea-prompt">
+      </div>
+      <div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+       <h4 id="Sample-results:">
+        Sample results:
+        <a class="anchor-link" href="#Sample-results:">
+         &para;
+        </a>
+       </h4>
+       <p>
+        ![Valuation over time](C:\SQL Projects\sample_results\1_valuation_over_time.png)
+       </p>
+      </div>
+     </div>
+    </div>
+   </div>
+   <div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=ef218806">
+    <div class="jp-Cell-inputWrapper" tabindex="0">
+     <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+     </div>
+     <div class="jp-InputArea jp-Cell-inputArea">
+      <div class="jp-InputPrompt jp-InputArea-prompt">
+      </div>
+      <div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+       <h3 id="Portfolio-Valuation-Per-User">
+        Portfolio Valuation Per User
+        <a class="anchor-link" href="#Portfolio-Valuation-Per-User">
+         &para;
+        </a>
+       </h3>
+       <p>
+        For this analysis I copied pasted the previous query adding "PARTITION BY user_id" for each calculation to get valuations for each user's portfolio.
+       </p>
+      </div>
+     </div>
+    </div>
+   </div>
+   <div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=79e82882">
+    <div class="jp-Cell-inputWrapper" tabindex="0">
+     <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+     </div>
+     <div class="jp-InputArea jp-Cell-inputArea">
+      <div class="jp-InputPrompt jp-InputArea-prompt">
+       In&nbsp;[&nbsp;]:
+      </div>
+      <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+       <div class="cm-editor cm-s-jupyter">
+        <div class="highlight hl-python">
+         <pre><span></span><span class="n">WITH</span> <span class="n">daily_totals</span> <span class="n">AS</span> <span class="p">(</span>
+<span class="n">SELECT</span> 
+    <span class="n">user_id</span><span class="p">,</span>
+    <span class="n">trade_date</span><span class="p">,</span>
+    <span class="n">SUM</span><span class="p">(</span><span class="n">portfolio_value</span><span class="p">)</span> <span class="k">as</span> <span class="n">total_valuation</span>
+<span class="n">FROM</span> <span class="n">valuation_over_time</span>
+<span class="n">GROUP</span> <span class="n">BY</span> <span class="n">user_id</span><span class="p">,</span> <span class="n">trade_date</span>
+<span class="p">)</span>
+
+<span class="n">SELECT</span>
+    <span class="n">user_id</span><span class="p">,</span>
+    <span class="n">trade_date</span><span class="p">,</span>
+    <span class="n">total_valuation</span><span class="p">,</span>
+    <span class="n">ROUND</span><span class="p">(</span><span class="n">total_valuation</span> <span class="o">-</span> <span class="n">LAG</span><span class="p">(</span><span class="n">total_valuation</span><span class="p">)</span> <span class="n">OVER</span> <span class="p">(</span><span class="n">PARTITION</span> <span class="n">BY</span> <span class="n">user_id</span> <span class="n">ORDER</span> <span class="n">BY</span> <span class="n">trade_date</span><span class="p">),</span> <span class="mi">2</span><span class="p">)</span> <span class="k">as</span> <span class="n">daily_change_value</span><span class="p">,</span>
+    <span class="n">ROUND</span><span class="p">((</span><span class="n">total_valuation</span> <span class="o">-</span> <span class="n">LAG</span><span class="p">(</span><span class="n">total_valuation</span><span class="p">)</span> <span class="n">OVER</span> <span class="p">(</span><span class="n">PARTITION</span> <span class="n">BY</span> <span class="n">user_id</span> <span class="n">ORDER</span> <span class="n">BY</span> <span class="n">trade_date</span><span class="p">))</span>
+        <span class="o">/</span> <span class="n">NULLIF</span><span class="p">(</span><span class="n">LAG</span><span class="p">(</span><span class="n">total_valuation</span><span class="p">)</span> <span class="n">OVER</span> <span class="p">(</span><span class="n">PARTITION</span> <span class="n">BY</span> <span class="n">user_id</span> <span class="n">ORDER</span> <span class="n">BY</span> <span class="n">trade_date</span><span class="p">),</span> <span class="mi">0</span><span class="p">)</span> <span class="o">*</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span> <span class="k">as</span> <span class="n">daily_change_percent</span><span class="p">,</span>
+    <span class="n">ROUND</span><span class="p">((</span><span class="n">total_valuation</span> <span class="o">-</span> <span class="n">FIRST_VALUE</span><span class="p">(</span><span class="n">total_valuation</span><span class="p">)</span> <span class="n">OVER</span> <span class="p">(</span><span class="n">PARTITION</span> <span class="n">BY</span> <span class="n">user_id</span> <span class="n">ORDER</span> <span class="n">BY</span> <span class="n">trade_date</span><span class="p">))</span>
+        <span class="o">/</span> <span class="n">NULLIF</span><span class="p">(</span><span class="n">FIRST_VALUE</span><span class="p">(</span><span class="n">total_valuation</span><span class="p">)</span> <span class="n">OVER</span> <span class="p">(</span><span class="n">PARTITION</span> <span class="n">BY</span> <span class="n">user_id</span> <span class="n">ORDER</span> <span class="n">BY</span> <span class="n">trade_date</span><span class="p">),</span> <span class="mi">0</span><span class="p">)</span> <span class="o">*</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span> <span class="k">as</span> <span class="n">cumulative_return</span>
+<span class="n">FROM</span> <span class="n">daily_totals</span>
+<span class="n">ORDER</span> <span class="n">BY</span> <span class="n">user_id</span><span class="p">,</span> <span class="n">trade_date</span> <span class="n">DESC</span>
+<span class="p">;</span>
+</pre>
+        </div>
+       </div>
+      </div>
+     </div>
+    </div>
+   </div>
+   <div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=9a930194">
+    <div class="jp-Cell-inputWrapper" tabindex="0">
+     <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+     </div>
+     <div class="jp-InputArea jp-Cell-inputArea">
+      <div class="jp-InputPrompt jp-InputArea-prompt">
+      </div>
+      <div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+       <h4 id="Sample-results:">
+        Sample results:
+        <a class="anchor-link" href="#Sample-results:">
+         &para;
+        </a>
+       </h4>
+       <p>
+        ![Valuation per user](C:\SQL Projects\sample_results\1_valuation_users.png)
+       </p>
+      </div>
+     </div>
+    </div>
+   </div>
+   <div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=b4abb2ae">
+    <div class="jp-Cell-inputWrapper" tabindex="0">
+     <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+     </div>
+     <div class="jp-InputArea jp-Cell-inputArea">
+      <div class="jp-InputPrompt jp-InputArea-prompt">
+      </div>
+      <div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+       <h3 id="Risk-Metrics">
+        Risk Metrics
+        <a class="anchor-link" href="#Risk-Metrics">
+         &para;
+        </a>
+       </h3>
+       <h4 id="1.-Standard-Deviation-using-STDEV()-on-daily_return-from-the-daily_returns-view">
+        1. Standard Deviation using STDEV() on daily_return from the daily_returns view
+        <a class="anchor-link" href="#1.-Standard-Deviation-using-STDEV()-on-daily_return-from-the-daily_returns-view">
+         &para;
+        </a>
+       </h4>
+      </div>
+     </div>
+    </div>
+   </div>
+   <div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=fd63eff8">
+    <div class="jp-Cell-inputWrapper" tabindex="0">
+     <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+     </div>
+     <div class="jp-InputArea jp-Cell-inputArea">
+      <div class="jp-InputPrompt jp-InputArea-prompt">
+       In&nbsp;[&nbsp;]:
+      </div>
+      <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+       <div class="cm-editor cm-s-jupyter">
+        <div class="highlight hl-python">
+         <pre><span></span><span class="n">SELECT</span>
+    <span class="n">user_id</span><span class="p">,</span>
+    <span class="n">ROUND</span><span class="p">(</span><span class="n">STDEV</span><span class="p">(</span><span class="n">daily_return</span><span class="p">),</span> <span class="mi">4</span><span class="p">)</span> <span class="k">as</span> <span class="n">volatility</span>
+<span class="n">FROM</span> <span class="n">daily_returns</span>
+<span class="n">WHERE</span> <span class="n">daily_return</span> <span class="n">IS</span> <span class="n">NOT</span> <span class="n">NULL</span>
+<span class="n">GROUP</span> <span class="n">BY</span> <span class="n">user_id</span>
+<span class="n">GO</span>
+</pre>
+        </div>
+       </div>
+      </div>
+     </div>
+    </div>
+   </div>
+   <div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=23411041">
+    <div class="jp-Cell-inputWrapper" tabindex="0">
+     <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+     </div>
+     <div class="jp-InputArea jp-Cell-inputArea">
+      <div class="jp-InputPrompt jp-InputArea-prompt">
+      </div>
+      <div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+       <p>
+        <img alt="Sample Chart" src="chart.png"/>
+       </p>
+      </div>
+     </div>
+    </div>
+   </div>
+   <div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=1c1bb99f">
+    <div class="jp-Cell-inputWrapper" tabindex="0">
+     <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+     </div>
+     <div class="jp-InputArea jp-Cell-inputArea">
+      <div class="jp-InputPrompt jp-InputArea-prompt">
+      </div>
+      <div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+       <h4 id="2.-Drawdowns">
+        2. Drawdowns
+        <a class="anchor-link" href="#2.-Drawdowns">
+         &para;
+        </a>
+       </h4>
+       <p>
+        To compute drawdowns I created two CTEs, one to find the running maximum for each portfolio and trade date, and one to calculate the drawdowns. I then had to find minimum drawdown percents to find the maximum drawdowns for each portfolio.
+       </p>
+      </div>
+     </div>
+    </div>
+   </div>
+   <div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=94b4fd64">
+    <div class="jp-Cell-inputWrapper" tabindex="0">
+     <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+     </div>
+     <div class="jp-InputArea jp-Cell-inputArea">
+      <div class="jp-InputPrompt jp-InputArea-prompt">
+       In&nbsp;[&nbsp;]:
+      </div>
+      <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+       <div class="cm-editor cm-s-jupyter">
+        <div class="highlight hl-python">
+         <pre><span></span><span class="n">WITH</span> <span class="n">running_max</span> <span class="n">AS</span> <span class="p">(</span>
+    <span class="n">SELECT</span>
+        <span class="n">user_id</span><span class="p">,</span>
+        <span class="n">trade_date</span><span class="p">,</span>
+        <span class="n">portfolio_value</span><span class="p">,</span>
+        <span class="n">MAX</span><span class="p">(</span><span class="n">portfolio_value</span><span class="p">)</span> <span class="n">OVER</span> <span class="p">(</span><span class="n">PARTITION</span> <span class="n">BY</span> <span class="n">user_id</span> <span class="n">ORDER</span> <span class="n">BY</span> <span class="n">trade_date</span><span class="p">)</span> <span class="k">as</span> <span class="n">max_to_date</span>
+    <span class="n">FROM</span> <span class="n">valuation_over_time</span>
+<span class="p">)</span>
+<span class="p">,</span>
+
+<span class="n">drawdowns</span> <span class="n">AS</span> <span class="p">(</span>
+    <span class="n">SELECT</span> 
+        <span class="n">user_id</span><span class="p">,</span>
+        <span class="n">trade_date</span><span class="p">,</span>
+        <span class="n">portfolio_value</span><span class="p">,</span>
+        <span class="n">max_to_date</span><span class="p">,</span>
+        <span class="n">ROUND</span><span class="p">((</span><span class="n">portfolio_value</span> <span class="o">-</span> <span class="n">max_to_date</span><span class="p">)</span> <span class="o">/</span> <span class="n">NULLIF</span><span class="p">(</span><span class="n">max_to_date</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span class="o">*</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span> <span class="k">as</span> <span class="n">drawdown_percent</span>
+    <span class="n">FROM</span> <span class="n">running_max</span>
+<span class="p">)</span>
+
+<span class="n">SELECT</span>
+    <span class="n">user_id</span><span class="p">,</span>
+    <span class="n">MIN</span><span class="p">(</span><span class="n">drawdown_percent</span><span class="p">)</span> <span class="k">as</span> <span class="n">max_drawdown</span>
+<span class="n">FROM</span> <span class="n">drawdowns</span>
+<span class="n">GROUP</span> <span class="n">BY</span> <span class="n">user_id</span>
+<span class="n">GO</span>
+</pre>
+        </div>
+       </div>
+      </div>
+     </div>
+    </div>
+   </div>
+   <div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=44d3ad33">
+    <div class="jp-Cell-inputWrapper" tabindex="0">
+     <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+     </div>
+     <div class="jp-InputArea jp-Cell-inputArea">
+      <div class="jp-InputPrompt jp-InputArea-prompt">
+      </div>
+      <div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+       <h4 id="3.-Value-at-Risk-95">
+        3. Value at Risk 95
+        <a class="anchor-link" href="#3.-Value-at-Risk-95">
+         &para;
+        </a>
+       </h4>
+       <p>
+        The query uses a subquery to get each user&rsquo;s VaR at 95% confidence with PERCENTILE_CONT(0.05) on daily returns. I added a row number to select only one row per user with "WHERE rn = 1" and avoid duplicates in the output.
+       </p>
+      </div>
+     </div>
+    </div>
+   </div>
+   <div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=597da3b0">
+    <div class="jp-Cell-inputWrapper" tabindex="0">
+     <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+     </div>
+     <div class="jp-InputArea jp-Cell-inputArea">
+      <div class="jp-InputPrompt jp-InputArea-prompt">
+       In&nbsp;[&nbsp;]:
+      </div>
+      <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+       <div class="cm-editor cm-s-jupyter">
+        <div class="highlight hl-python">
+         <pre><span></span><span class="n">SELECT</span>
+    <span class="n">user_id</span><span class="p">,</span>
+    <span class="n">var_95</span>
+<span class="n">FROM</span> <span class="p">(</span>
+    <span class="n">SELECT</span>
+        <span class="n">user_id</span><span class="p">,</span>
+        <span class="n">PERCENTILE_CONT</span><span class="p">(</span><span class="mf">0.05</span><span class="p">)</span> <span class="n">WITHIN</span> <span class="n">GROUP</span> <span class="p">(</span><span class="n">ORDER</span> <span class="n">BY</span> <span class="n">daily_return</span><span class="p">)</span> <span class="n">OVER</span> <span class="p">(</span><span class="n">PARTITION</span> <span class="n">BY</span> <span class="n">user_id</span><span class="p">)</span> <span class="n">AS</span> <span class="n">var_95</span><span class="p">,</span>
+        <span class="n">ROW_NUMBER</span><span class="p">()</span> <span class="n">OVER</span> <span class="p">(</span><span class="n">PARTITION</span> <span class="n">BY</span> <span class="n">user_id</span> <span class="n">ORDER</span> <span class="n">BY</span> <span class="n">trade_date</span><span class="p">)</span> <span class="n">AS</span> <span class="n">rn</span>
+    <span class="n">FROM</span> <span class="n">daily_returns</span>
+    <span class="n">WHERE</span> <span class="n">daily_return</span> <span class="n">IS</span> <span class="n">NOT</span> <span class="n">NULL</span>
+<span class="p">)</span> <span class="n">ranked</span>
+<span class="n">WHERE</span> <span class="n">rn</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="p">;</span>
+</pre>
+        </div>
+       </div>
+      </div>
+     </div>
+    </div>
+   </div>
+   <div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=17190ca1">
+    <div class="jp-Cell-inputWrapper" tabindex="0">
+     <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+     </div>
+     <div class="jp-InputArea jp-Cell-inputArea">
+      <div class="jp-InputPrompt jp-InputArea-prompt">
+      </div>
+      <div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+       <h3 id="Concentration-Risks">
+        Concentration Risks
+        <a class="anchor-link" href="#Concentration-Risks">
+         &para;
+        </a>
+       </h3>
+       <p>
+        The following query identifies stocks exceeding 10% of portfolio value to highlight diversification issues. To do so I joined two tables together, portfolio and company (to get each stock_id's name), and had to perform a join on a new table created out of joining the same two original tables to divide by the total values of each portfolio. Note: I could have used a view created earlier or a CTE, but the goal here was to demonstrate different querying techniques.
+       </p>
+      </div>
+     </div>
+    </div>
+   </div>
+   <div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=99a27833">
+    <div class="jp-Cell-inputWrapper" tabindex="0">
+     <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+     </div>
+     <div class="jp-InputArea jp-Cell-inputArea">
+      <div class="jp-InputPrompt jp-InputArea-prompt">
+       In&nbsp;[&nbsp;]:
+      </div>
+      <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+       <div class="cm-editor cm-s-jupyter">
+        <div class="highlight hl-python">
+         <pre><span></span><span class="n">SELECT</span> 
+    <span class="n">p</span><span class="o">.</span><span class="n">user_id</span><span class="p">,</span>
+    <span class="n">c</span><span class="o">.</span><span class="n">stock_name</span><span class="p">,</span>
+    <span class="n">ROUND</span><span class="p">((</span><span class="n">SUM</span><span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">quantity</span> <span class="o">*</span> <span class="n">c</span><span class="o">.</span><span class="n">stock_price</span><span class="p">)</span> <span class="o">/</span> <span class="n">user_totals</span><span class="o">.</span><span class="n">total_value</span><span class="p">)</span> <span class="o">*</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span> <span class="n">AS</span> <span class="n">portfolio_percentage</span>
+<span class="n">FROM</span> <span class="n">portfolio</span> <span class="n">p</span>
+<span class="n">JOIN</span> <span class="n">company</span> <span class="n">c</span> <span class="n">ON</span> <span class="n">p</span><span class="o">.</span><span class="n">stock_id</span> <span class="o">=</span> <span class="n">c</span><span class="o">.</span><span class="n">stock_id</span>
+<span class="n">JOIN</span> <span class="p">(</span>
+    <span class="n">SELECT</span> 
+        <span class="n">user_id</span><span class="p">,</span> 
+        <span class="n">SUM</span><span class="p">(</span><span class="n">p2</span><span class="o">.</span><span class="n">quantity</span> <span class="o">*</span> <span class="n">c2</span><span class="o">.</span><span class="n">stock_price</span><span class="p">)</span> <span class="n">AS</span> <span class="n">total_value</span>
+    <span class="n">FROM</span> <span class="n">portfolio</span> <span class="n">p2</span>
+    <span class="n">JOIN</span> <span class="n">company</span> <span class="n">c2</span> <span class="n">ON</span> <span class="n">p2</span><span class="o">.</span><span class="n">stock_id</span> <span class="o">=</span> <span class="n">c2</span><span class="o">.</span><span class="n">stock_id</span>
+    <span class="n">GROUP</span> <span class="n">BY</span> <span class="n">user_id</span>
+<span class="p">)</span> <span class="n">AS</span> <span class="n">user_totals</span> <span class="n">ON</span> <span class="n">p</span><span class="o">.</span><span class="n">user_id</span> <span class="o">=</span> <span class="n">user_totals</span><span class="o">.</span><span class="n">user_id</span>
+<span class="n">GROUP</span> <span class="n">BY</span> <span class="n">p</span><span class="o">.</span><span class="n">user_id</span><span class="p">,</span> <span class="n">c</span><span class="o">.</span><span class="n">stock_name</span><span class="p">,</span> <span class="n">user_totals</span><span class="o">.</span><span class="n">total_value</span>
+<span class="n">HAVING</span> <span class="n">ROUND</span><span class="p">((</span><span class="n">SUM</span><span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">quantity</span> <span class="o">*</span> <span class="n">c</span><span class="o">.</span><span class="n">stock_price</span><span class="p">)</span> <span class="o">/</span> <span class="n">user_totals</span><span class="o">.</span><span class="n">total_value</span><span class="p">)</span> <span class="o">*</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">10</span>
+<span class="p">;</span>
+</pre>
+        </div>
+       </div>
+      </div>
+     </div>
+    </div>
+   </div>
+   <div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=04d39b0c">
+    <div class="jp-Cell-inputWrapper" tabindex="0">
+     <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+     </div>
+     <div class="jp-InputArea jp-Cell-inputArea">
+      <div class="jp-InputPrompt jp-InputArea-prompt">
+      </div>
+      <div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+       <h3 id="Transaction-Cost-Impact">
+        Transaction Cost Impact
+        <a class="anchor-link" href="#Transaction-Cost-Impact">
+         &para;
+        </a>
+       </h3>
+       <p>
+        I then quantified how trading commissions impact overall returns with simple techniques.
+       </p>
+      </div>
+     </div>
+    </div>
+   </div>
+   <div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=65ebda48">
+    <div class="jp-Cell-inputWrapper" tabindex="0">
+     <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+     </div>
+     <div class="jp-InputArea jp-Cell-inputArea">
+      <div class="jp-InputPrompt jp-InputArea-prompt">
+       In&nbsp;[&nbsp;]:
+      </div>
+      <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+       <div class="cm-editor cm-s-jupyter">
+        <div class="highlight hl-python">
+         <pre><span></span><span class="n">SELECT</span>
+    <span class="n">user_id</span><span class="p">,</span>
+    <span class="n">SUM</span><span class="p">(</span><span class="n">commission</span><span class="p">)</span> <span class="k">as</span> <span class="n">total_commissions</span><span class="p">,</span>
+    <span class="n">ROUND</span><span class="p">(</span><span class="n">SUM</span><span class="p">(</span><span class="n">commission</span><span class="p">)</span> <span class="o">/</span> <span class="n">SUM</span><span class="p">(</span><span class="n">ABS</span><span class="p">(</span><span class="n">quantity</span> <span class="o">*</span> <span class="n">price</span><span class="p">))</span> <span class="o">*</span><span class="mi">100</span><span class="p">,</span> <span class="mi">6</span><span class="p">)</span> <span class="k">as</span> <span class="n">cost_percentage</span>
+<span class="n">FROM</span> <span class="n">transaction_history</span>
+<span class="n">GROUP</span> <span class="n">BY</span> <span class="n">user_id</span>
+<span class="n">ORDER</span> <span class="n">BY</span> <span class="n">user_id</span>
+<span class="p">;</span>
+</pre>
+        </div>
+       </div>
+      </div>
+     </div>
+    </div>
+   </div>
+   <div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=f262cb84">
+    <div class="jp-Cell-inputWrapper" tabindex="0">
+     <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+     </div>
+     <div class="jp-InputArea jp-Cell-inputArea">
+      <div class="jp-InputPrompt jp-InputArea-prompt">
+      </div>
+      <div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+       <h3 id="Moving-Averages-and-Trading-Signals">
+        Moving Averages and Trading Signals
+        <a class="anchor-link" href="#Moving-Averages-and-Trading-Signals">
+         &para;
+        </a>
+       </h3>
+       <p>
+        I used moving averages on 10 and 30 days to generate trading signals at crossovers. To do so I first created a CTE to calculate the moving averages, and then used it in a CASE statement to generate 'BUY', 'SELL' and 'HOLD' orders.
+       </p>
+      </div>
+     </div>
+    </div>
+   </div>
+   <div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=a1f58680">
+    <div class="jp-Cell-inputWrapper" tabindex="0">
+     <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+     </div>
+     <div class="jp-InputArea jp-Cell-inputArea">
+      <div class="jp-InputPrompt jp-InputArea-prompt">
+       In&nbsp;[&nbsp;]:
+      </div>
+      <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+       <div class="cm-editor cm-s-jupyter">
+        <div class="highlight hl-python">
+         <pre><span></span><span class="n">WITH</span> <span class="n">moving_averages</span> <span class="k">as</span> <span class="p">(</span>
+    <span class="n">SELECT</span>
+        <span class="n">stock_id</span><span class="p">,</span>
+        <span class="n">trade_date</span><span class="p">,</span>
+        <span class="n">close_price</span><span class="p">,</span>
+        <span class="n">AVG</span><span class="p">(</span><span class="n">close_price</span><span class="p">)</span> <span class="n">OVER</span> <span class="p">(</span><span class="n">PARTITION</span> <span class="n">BY</span> <span class="n">stock_id</span> <span class="n">ORDER</span> <span class="n">BY</span> <span class="n">trade_date</span> <span class="n">ROWS</span> <span class="n">BETWEEN</span> <span class="mi">9</span> <span class="n">PRECEDING</span> <span class="n">AND</span> <span class="n">CURRENT</span> <span class="n">ROW</span><span class="p">)</span> <span class="k">as</span> <span class="n">mav_10</span><span class="p">,</span>
+        <span class="n">AVG</span><span class="p">(</span><span class="n">close_price</span><span class="p">)</span> <span class="n">OVER</span> <span class="p">(</span><span class="n">PARTITION</span> <span class="n">BY</span> <span class="n">stock_id</span> <span class="n">ORDER</span> <span class="n">BY</span> <span class="n">trade_date</span> <span class="n">ROWS</span> <span class="n">BETWEEN</span> <span class="mi">29</span> <span class="n">PRECEDING</span> <span class="n">AND</span> <span class="n">CURRENT</span> <span class="n">ROW</span><span class="p">)</span> <span class="k">as</span> <span class="n">mav_30</span>
+    <span class="n">FROM</span> <span class="n">stock_price_history</span>
+<span class="p">)</span>
+
+<span class="n">SELECT</span> 
+    <span class="n">stock_id</span><span class="p">,</span>
+    <span class="n">trade_date</span><span class="p">,</span>
+    <span class="n">close_price</span><span class="p">,</span>
+    <span class="n">CASE</span>
+        <span class="n">WHEN</span> <span class="n">mav_10</span> <span class="o">&gt;</span> <span class="n">mav_30</span> 
+            <span class="n">AND</span> <span class="n">LAG</span><span class="p">(</span><span class="n">mav_10</span><span class="p">)</span> <span class="n">OVER</span> <span class="p">(</span><span class="n">PARTITION</span> <span class="n">BY</span> <span class="n">stock_id</span> <span class="n">ORDER</span> <span class="n">BY</span> <span class="n">trade_date</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="n">LAG</span><span class="p">(</span><span class="n">mav_30</span><span class="p">)</span> <span class="n">OVER</span> <span class="p">(</span><span class="n">PARTITION</span> <span class="n">BY</span> <span class="n">stock_id</span> <span class="n">ORDER</span> <span class="n">BY</span> <span class="n">trade_date</span><span class="p">)</span>
+            <span class="n">THEN</span> <span class="s1">'BUY'</span>
+        <span class="n">WHEN</span> <span class="n">mav_10</span> <span class="o">&lt;</span> <span class="n">mav_30</span> 
+            <span class="n">AND</span> <span class="n">LAG</span><span class="p">(</span><span class="n">mav_10</span><span class="p">)</span> <span class="n">OVER</span> <span class="p">(</span><span class="n">PARTITION</span> <span class="n">BY</span> <span class="n">stock_id</span> <span class="n">ORDER</span> <span class="n">BY</span> <span class="n">trade_date</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="n">LAG</span><span class="p">(</span><span class="n">mav_30</span><span class="p">)</span> <span class="n">OVER</span> <span class="p">(</span><span class="n">PARTITION</span> <span class="n">BY</span> <span class="n">stock_id</span> <span class="n">ORDER</span> <span class="n">BY</span> <span class="n">trade_date</span><span class="p">)</span>
+            <span class="n">THEN</span> <span class="s1">'SELL'</span>
+        <span class="n">ELSE</span> <span class="s1">'HOLD'</span>
+    <span class="n">END</span> <span class="n">AS</span> <span class="n">signal</span>
+<span class="n">FROM</span> <span class="n">moving_averages</span>
+<span class="p">;</span>
+</pre>
+        </div>
+       </div>
+      </div>
+     </div>
+    </div>
+   </div>
+   <div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=faff65f6">
+    <div class="jp-Cell-inputWrapper" tabindex="0">
+     <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+     </div>
+     <div class="jp-InputArea jp-Cell-inputArea">
+      <div class="jp-InputPrompt jp-InputArea-prompt">
+      </div>
+      <div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+       <h3 id="Realized-and-Unrealized-Gains">
+        Realized and Unrealized Gains
+        <a class="anchor-link" href="#Realized-and-Unrealized-Gains">
+         &para;
+        </a>
+       </h3>
+       <p>
+        In a CTE, I used the transaction types and a CASE statement to calculate separetly the quantity bought and sold, as well as the total costs from buying and proceeds from sells, which are then used in the final analysis.
+       </p>
+      </div>
+     </div>
+    </div>
+   </div>
+   <div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=951c3acd">
+    <div class="jp-Cell-inputWrapper" tabindex="0">
+     <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+     </div>
+     <div class="jp-InputArea jp-Cell-inputArea">
+      <div class="jp-InputPrompt jp-InputArea-prompt">
+       In&nbsp;[&nbsp;]:
+      </div>
+      <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+       <div class="cm-editor cm-s-jupyter">
+        <div class="highlight hl-python">
+         <pre><span></span><span class="n">WITH</span> <span class="n">transactions_agg</span> <span class="n">AS</span> <span class="p">(</span>
+    <span class="n">SELECT</span>
+        <span class="n">user_id</span><span class="p">,</span>
+        <span class="n">stock_id</span><span class="p">,</span>
+        <span class="n">SUM</span><span class="p">(</span><span class="n">CASE</span> <span class="n">WHEN</span> <span class="n">transaction_type</span> <span class="o">=</span> <span class="s1">'BUY'</span> <span class="n">THEN</span> <span class="n">quantity</span> <span class="n">ELSE</span> <span class="mi">0</span> <span class="n">END</span><span class="p">)</span> <span class="n">AS</span> <span class="n">total_bought</span><span class="p">,</span>
+        <span class="n">SUM</span><span class="p">(</span><span class="n">CASE</span> <span class="n">WHEN</span> <span class="n">transaction_type</span> <span class="o">=</span> <span class="s1">'SELL'</span> <span class="n">THEN</span> <span class="n">quantity</span> <span class="n">ELSE</span> <span class="mi">0</span> <span class="n">END</span><span class="p">)</span> <span class="n">AS</span> <span class="n">total_sold</span><span class="p">,</span>
+        <span class="n">SUM</span><span class="p">(</span><span class="n">CASE</span> <span class="n">WHEN</span> <span class="n">transaction_type</span> <span class="o">=</span> <span class="s1">'BUY'</span> <span class="n">THEN</span> <span class="n">quantity</span> <span class="o">*</span> <span class="n">price</span> <span class="n">ELSE</span> <span class="mi">0</span> <span class="n">END</span><span class="p">)</span> <span class="n">AS</span> <span class="n">total_cost_buys</span><span class="p">,</span>
+        <span class="n">SUM</span><span class="p">(</span><span class="n">CASE</span> <span class="n">WHEN</span> <span class="n">transaction_type</span> <span class="o">=</span> <span class="s1">'SELL'</span> <span class="n">THEN</span> <span class="n">quantity</span> <span class="o">*</span> <span class="n">price</span> <span class="n">ELSE</span> <span class="mi">0</span> <span class="n">END</span><span class="p">)</span> <span class="n">AS</span> <span class="n">total_proceeds_sells</span>
+    <span class="n">FROM</span> <span class="n">transaction_history</span>
+    <span class="n">GROUP</span> <span class="n">BY</span> <span class="n">user_id</span><span class="p">,</span> <span class="n">stock_id</span>
+<span class="p">)</span>
+
+<span class="n">SELECT</span>
+    <span class="n">p</span><span class="o">.</span><span class="n">user_id</span><span class="p">,</span>
+    <span class="n">p</span><span class="o">.</span><span class="n">stock_id</span><span class="p">,</span>
+    <span class="n">ta</span><span class="o">.</span><span class="n">total_cost_buys</span><span class="p">,</span>
+    <span class="n">ta</span><span class="o">.</span><span class="n">total_proceeds_sells</span><span class="p">,</span>
+    <span class="p">(</span><span class="n">ta</span><span class="o">.</span><span class="n">total_proceeds_sells</span> <span class="o">-</span> <span class="p">(</span><span class="n">ta</span><span class="o">.</span><span class="n">total_cost_buys</span> <span class="o">/</span> <span class="n">NULLIF</span><span class="p">(</span><span class="n">ta</span><span class="o">.</span><span class="n">total_bought</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span class="o">*</span> <span class="n">ta</span><span class="o">.</span><span class="n">total_sold</span><span class="p">))</span> <span class="n">AS</span> <span class="n">realized_gain</span><span class="p">,</span>
+    <span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">quantity</span> <span class="o">*</span> <span class="n">c</span><span class="o">.</span><span class="n">stock_price</span> <span class="o">-</span> <span class="p">((</span><span class="n">ta</span><span class="o">.</span><span class="n">total_cost_buys</span> <span class="o">/</span> <span class="n">NULLIF</span><span class="p">(</span><span class="n">ta</span><span class="o">.</span><span class="n">total_bought</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span> <span class="o">*</span> <span class="n">p</span><span class="o">.</span><span class="n">quantity</span><span class="p">))</span> <span class="n">AS</span> <span class="n">unrealized_gain</span>
+<span class="n">FROM</span> <span class="n">portfolio</span> <span class="n">p</span>
+<span class="n">JOIN</span> <span class="n">company</span> <span class="n">c</span> <span class="n">ON</span> <span class="n">p</span><span class="o">.</span><span class="n">stock_id</span> <span class="o">=</span> <span class="n">c</span><span class="o">.</span><span class="n">stock_id</span>
+<span class="n">LEFT</span> <span class="n">JOIN</span> <span class="n">transactions_agg</span> <span class="n">ta</span> <span class="n">ON</span> <span class="n">p</span><span class="o">.</span><span class="n">user_id</span> <span class="o">=</span> <span class="n">ta</span><span class="o">.</span><span class="n">user_id</span> <span class="n">AND</span> <span class="n">p</span><span class="o">.</span><span class="n">stock_id</span> <span class="o">=</span> <span class="n">ta</span><span class="o">.</span><span class="n">stock_id</span>
+<span class="p">;</span>
+</pre>
+        </div>
+       </div>
+      </div>
+     </div>
+    </div>
+   </div>
+  </main>
+ </body>
+</html>
