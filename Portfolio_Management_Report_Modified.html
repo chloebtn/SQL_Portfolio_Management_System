@@ -122,7 +122,9 @@
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+</div>
+
+<div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
 <h3 id="Valuation-Over-Time-For-All-Portfolios-Combined">Valuation Over Time For All Portfolios Combined<a class="anchor-link" href="#Valuation-Over-Time-For-All-Portfolios-Combined">¶</a></h3><p>I started with a CTE for total daily valuation for all portfolios combined.
 I then added columns for total daily changes in values and in percentages, and cumulative returns.</p>
 </div>
@@ -166,16 +168,17 @@ I then added columns for total daily changes in values and in percentages, and c
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h4 id="Sample-results:">Sample results:<a class="anchor-link" href="#Sample-results:">¶</a></h4><p>![Valuation over time](C:\SQL Projects\sample_results\1_valuation_over_time.png)</p>
-</div>
-</div>
+<h4 id="Sample-results:">Sample results:<a class="anchor-link" href="#Sample-results:">¶</a></h4>
+        <p><img alt="Valuation over time" src="SampleResults /1_valuation_over_time.png"/></p>
 </div>
 </div><div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=ef218806">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+</div>
+
+<div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
 <h3 id="Portfolio-Valuation-Per-User">Portfolio Valuation Per User<a class="anchor-link" href="#Portfolio-Valuation-Per-User">¶</a></h3><p>For this analysis I copied pasted the previous query adding "PARTITION BY user_id" for each calculation to get valuations for each user's portfolio.</p>
 </div>
 </div>
@@ -214,23 +217,29 @@ I then added columns for total daily changes in values and in percentages, and c
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=9a930194">
+</div>
+        
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=9a930194">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h4 id="Sample-results:">Sample results:<a class="anchor-link" href="#Sample-results:">¶</a></h4><p>![Valuation per user](C:\SQL Projects\sample_results\1_valuation_users.png)</p>
+<h4 id="Sample-results:">Sample results:<a class="anchor-link" href="#Sample-results:">¶</a></h4>
+                <p><img alt="Valuation per user" src="SampleResults /1_valuation_users.png"/></p>
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=b4abb2ae">
+</div>
+
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=b4abb2ae">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h3 id="Risk-Metrics">Risk Metrics<a class="anchor-link" href="#Risk-Metrics">¶</a></h3><h4 id="1.-Standard-Deviation-using-STDEV()-on-daily_return-from-the-daily_returns-view">1. Standard Deviation using STDEV() on daily_return from the daily_returns view<a class="anchor-link" href="#1.-Standard-Deviation-using-STDEV()-on-daily_return-from-the-daily_returns-view">¶</a></h4>
+<h3 id="Risk-Metrics">Risk Metrics<a class="anchor-link" href="#Risk-Metrics">¶</a></h3>
+<h4 id="1.-Standard-Deviation-using-STDEV()-on-daily_return-from-the-daily_returns-view">1. Standard Deviation using STDEV() on daily_return from the daily_returns view<a class="anchor-link" href="#1.-Standard-Deviation-using-STDEV()-on-daily_return-from-the-daily_returns-view">¶</a></h4>
 </div>
 </div>
 </div>
