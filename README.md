@@ -33,4 +33,4 @@ In [0_views.sql](0_views.sql) two views, valuation_over_time and daily_returns, 
 
 [6_gains.sql](6_gains.sql) uses a CTE, the transaction types and a CASE statement to calculate separetly the quantity bought and sold, as well as the total costs from buying and proceeds from sells, which are then used in the final analysis.
 
-Sample of the results can be found in the [SampleResults](SampleResults) directory.
+Sample of the results can be found in the [SampleResults](https://github.com/chloebtn/SQL_Portfolio_Management_System/tree/007f4e70034019f25caf6f0aba3fef105018fae6/SampleResults%20) directory.
