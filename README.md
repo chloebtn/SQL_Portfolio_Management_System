@@ -1,6 +1,6 @@
 ## Portfolio Management System
 This project documents a stock portfolio management system built using SQL queries with fictional data.\
-The project demonstrates my ability to manage investment data, calculate key financial metrics, and generate actionable insights for portfolio analysis and risk management.
+The project demonstrates my ability to manage client databases, investment data, calculate key financial metrics, and generate actionable insights for portfolio analysis and risk management.
 
 
 #### Project Objectives:
@@ -28,3 +28,9 @@ In [0_views.sql](0_views.sql) two views, valuation_over_time and daily_returns, 
 [3_concentration_risk.sql](3_concentration_risk.sql) identifies stocks exceeding 10% of portfolio value to highlight diversification issues. Two tables were joined together, portfolio and company (to get each stock_id's name), and a join had to be performed on a new table created out of joining the same two original tables to divide by the total values of each portfolio. Note: I could have used a view created earlier or a CTE, but the goal here was to demonstrate different querying techniques.
 
 [4_transaction_cost_impact.sql](4_transaction_cost_impact.sql) quatifies how trading commissions impact overall returns with simple quering techniques.
+
+[5_moving_average.sql](5_moving_average.sql) generates trading signals based on 10-day/30-day moving average crossovers using a CTE to calculate the moving averages, and then used it in a CASE statement to generate 'BUY', 'SELL' and 'HOLD' orders.
+
+[6_gains.sql](6_gains.sql) uses a CTE, the transaction types and a CASE statement to calculate separetly the quantity bought and sold, as well as the total costs from buying and proceeds from sells, which are then used in the final analysis.
+
+Sample of the results can be found in the [SampleResults](SampleResults) directory.
